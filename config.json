@@ -1,0 +1,12 @@
+{
+  "mode": "Train",
+  "train_hr_dir": "DIV2K/Augment_Train",
+  "valid_hr_dir": "DIV2K/DIV2K_valid_HR/",
+  "test_sample_size": 100,
+  "crop_size": [128, 128],
+  "scale_factor": 4,
+  "batch_size": 16,
+  "epochs": 5,
+  "time_steps": 2000,
+  "checkpoint_path": "/Users/UliKonstantin4/PycharmProjects/SR3/my_final_checkpoint.pt"
+}
