@@ -1,1 +1,16 @@
 DIV2K/
+# Ignore system files
+.DS_Store
+
+# Ignore Python bytecode
+__pycache__/
+*.pyc
+
+# Ignore environment files
+.env
+
+# Ignore large checkpoint files
+*.pt
+
+# Ignore directories (like an IDE config folder)
+.idea/
