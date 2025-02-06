@@ -20,7 +20,7 @@ from data_preprocessing import preprocess_data
 # Your model and training logic
 from Model.DiffusionBlock import DiffusionModel
 from train import train_ddpm
-
+from Test import evaluate_checkpoints
 
 def main(config_path="config.json"):
     # 1) Load config
@@ -65,11 +65,16 @@ def main(config_path="config.json"):
         # 6) Save checkpoint (example name)
         torch.save(final_ckpt, "my_final_checkpoint.pt")
         print("Training complete. Checkpoint saved.")
-    elif config["mode"]  == "Test":
+    elif config["mode"]  == "Sample":
         opt = torch.optim.Adam(ddpm.model.parameters(), lr=1e-3)
         epoch = load_checkpoint(ddpm, opt, checkpoint_path, device=device)
-        process_batch(train_sr_loader, ddpm, device)
+        process_batch_and_save(train_sr_loader, ddpm, device, startpt = 0)
 
+    elif config["mode"] == "Test":
+
+        fid_device = device
+        checkpoint_directory = "checkpoints/final checkpoint"
+        evaluate_checkpoints(ddpm, config["valid_hr_dir"], checkpoint_directory, device=device, batch_size=16, fid_device=fid_device)
 
 if __name__ == "__main__":
     main()

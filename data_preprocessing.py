@@ -34,9 +34,10 @@ def preprocess_data(config_path="config.json"):
     # 4) Create dataset
     train_sr_dataset = SRDataset(
         dataset_path=train_hr_dir,
-        crop_size=crop_size
+        crop_size=crop_size,
         # If you have custom transforms, add them here
-        # _transforms=your_transform_pipeline
+        #_transforms = transforms.Compose([
+        #        transforms.ToTensor()])
     )
 
     # 5) Create DataLoader
