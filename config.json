@@ -1,5 +1,5 @@
 {
-  "mode": "Sample",
+  "mode": "reconstruct_full_image",
   "train_hr_dir": "DIV2K/Augment_Train",
   "valid_hr_dir": "DIV2K/DIV2K_valid_HR/",
   "test_sample_size": 100,

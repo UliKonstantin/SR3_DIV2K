@@ -13,7 +13,7 @@ from utils import *
 # from your_split_file import split_data   # or however you import split_data
 import json
 import torch
-
+from image_reconsturct import   process_hr_patches_and_save_full_image
 # Import the data-preprocessing function
 from data_preprocessing import preprocess_data
 
@@ -75,6 +75,17 @@ def main(config_path="config.json"):
         fid_device = device
         checkpoint_directory = "checkpoints/final checkpoint"
         evaluate_checkpoints(ddpm, config["valid_hr_dir"], checkpoint_directory, device=device, batch_size=16, fid_device=fid_device)
-
+    elif config ["mode"] == "reconstruct_full_image":
+        patch_dir = "DIV2K/patched_one_image"
+        output_path = "stitched_full_image.png"
+        image_id = "0052"   # if you want to process only patches for image "0052"
+        checkpoint_directory = "checkpoints/sr_ep_48.pt"
+        # Dummy optimizer (only needed for load_checkpoint).
+        dummy_optimizer = torch.optim.Adam(ddpm.model.parameters(), lr=1e-3)
+        checkpoint_path = config["checkpoint_path"]
+        # Ensure your model and sample() function are loaded/defined.
+        process_hr_patches_and_save_full_image(patch_dir, ddpm, checkpoint_path,dummy_optimizer, device=device,
+                                               output_path=output_path, image_id=image_id,
+                                               hr_size=128, lr_size=32)
 if __name__ == "__main__":
     main()
